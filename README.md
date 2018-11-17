@@ -5,9 +5,9 @@ Those are the sample applications for
 Learn Web Development with Rails*](http://www.railstutorial.org/)
 by [Michael Hartl](http://www.michaelhartl.com/).
 
-- Folder hello_app contains application in Chapter 1.
-- Folder toy_app contains application in Chapter 2.
-- Folder sample_app contains application in Chapter 3.
+- Folder hello_app/ contains application in Chapter 1.
+- Folder toy_app/ contains application in Chapter 2.
+- Folder sample_app/ contains application in Chapter 3.
 
 ## License
 
