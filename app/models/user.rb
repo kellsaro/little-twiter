@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
+  # Adds 'password' and 'password_confirmation' virtual attibutes
+  has_secure_password
+
   before_save { self.email.downcase! }
   	
   validates :name, presence: true, length: {maximum: 50}
@@ -9,17 +12,16 @@ class User < ApplicationRecord
 	    format: {with: VALID_EMAIL_REGEX},
 	    uniqueness: { case_sensitive: false}
 
-  has_secure_password
   validates :password, presence: true, length: {minimum: 6}
 
   # Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST 
                                                 : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)						
+    BCrypt::Password.create(string, cost: cost)	
   end
 
-  # Remembers a user in the database for use in persisten sessions.
+  # Remembers a user in the database for use in persistent sessions.
   def remember
     self.remember_token = SecureRandom.urlsafe_base64
     update_attribute(:remember_digest, User.digest(self.remember_token))
@@ -27,8 +29,9 @@ class User < ApplicationRecord
 
   # Returns true if the given token matches the digest.
   def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+    return BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  rescue BCrypt::Errors::InvalidHash
+    return false
   end
 
   # Forgets a user.

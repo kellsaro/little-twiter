@@ -8,7 +8,7 @@ class Session
   #          uniqueness: { case_sensitive: false}
   #validates :password, presence: true, length {minimum: 6}
 
-  def clear
+  def clear_attributes
     self.email = nil
     self.password = nil
     self.remember_me = nil
