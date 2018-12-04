@@ -31,7 +31,17 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  # config.action_mailer.raise_delivery_errors = false
+  # config.action_mailer.delivery_method = :test
+  config.action_mailer.raise_delivery_errors = true
+
+  # Use your dev host
+  host = 'localhost:3000'
+  # If developing on localhost use:
+  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
+  # If developing on the cloud IDE use:
+  # config_action_mailer.default_url_options = { host: host, protocol: 'https' }
+
 
   config.action_mailer.perform_caching = false
 
